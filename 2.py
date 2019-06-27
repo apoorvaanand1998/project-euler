@@ -7,17 +7,14 @@
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.           #
 ################################################################################################################################################
 
-counter = 0
+fib = [1, 2]
 
-fib_list = [1, 2, 3]
+ne = 3
+res = 2  # 2 is already in the fib list and accounted for here
 
-for i in range (2, 4000000):
-    n = fib_list[-1] + fib_list[-2]
-    if n > 4000000:
-        break
-    fib_list.append(n)
-    if n%2 == 0:
-        counter += n
-
-print(fib_list)
-print(counter)  # add 2 to get the right answer, this is because 2 already exists in fib_list and hasn't been accounted for
+while ne < 4000000:
+    fib.append(ne)
+    ne = fib[-1] + fib[-2]
+    if ne%2 == 0:
+        res += ne
+print(res)
