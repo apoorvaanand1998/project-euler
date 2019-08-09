@@ -29,18 +29,83 @@ l = [list(map(int, e)) for e in l]
 
 ## prepares the grid for traversal
 
-def max_hor(l):
+def max_4prod(l):
     prod = 1
     for i in range(4):
         prod *= l[i]
     fe = 0
     max_prod = prod
     for i in range(4, 19):
-        new_prod = prod * l[i] / l[fe]
+        try:
+            new_prod = prod * l[i] / l[fe]
+        except ZeroDivisionError:
+            new_prod = 1
+            for j in range(i - 3, i + 1):
+                new_prod *= l[j]
         fe = i - 3
         prod = new_prod
         if prod > max_prod:
             max_prod = prod
-    return prod
+    return max_prod
 
-print(max_hor(l[0]))
+lv = []
+for i in range(20):
+    ilv = []
+    for j in range(20):
+        ilv.append(l[j][i])
+    lv.append(ilv)
+
+## list of all verticals
+
+lld = []
+for i in range(20):
+    illd = []
+    for j in range(i + 1):
+        k = i - j
+        illd.append(l[k][j])
+    lld.append(illd)
+
+for i in range(1, 20):
+    illd = []
+    for j in range(19, i - 1, -1):
+        k = 19 + i - j
+        illd.append(l[j][k])
+    lld.append(illd)
+    
+## list of all left diagnols
+
+lrd = []
+for i in range(20):
+    ilrd = []
+    for j in range(i + 1):
+        k = 19 - i + j 
+        ilrd.append(l[j][k])
+    lrd.append(ilrd)
+
+for i in range(18, -1, -1):
+    ilrd = []
+    for j in range(i + 1):
+        k = 19 - i + j 
+        ilrd.append(l[k][j])
+    lrd.append(ilrd)
+
+## list of all right diagnols
+
+for e in lld:
+    while len(e) < 20:
+        e.append(1)
+
+for e in lrd:
+    while len(e) < 20:
+        e.append(1)
+
+## appends 1 to lrd and lvd so they can be put into max_4prod()
+
+max_prod = 0
+
+for e in l + lv + lld + lrd:
+    prod = max_4prod(e)
+    if prod > max_prod:
+        max_prod = prod
+
+print(max_prod)
