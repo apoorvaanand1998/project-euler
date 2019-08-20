@@ -12,7 +12,7 @@ def pf(n):
     while n % 2 == 0:
         n //= 2
         l.append(2)
-    for i in range(3, math.ceil(math.sqrt(n))):
+    for i in range(3, math.ceil(math.sqrt(n))+1):
         while n % i == 0:
             n //= i
             l.append(i)
@@ -39,7 +39,7 @@ for i in range(2, 10000):
     b = sum(pd(a))
     if i == b and a != b:
         sum_amicable += i
-
+        
 print(sum_amicable)
 
 
