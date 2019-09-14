@@ -23,7 +23,7 @@ for i in range(1000000):
         if not l[n]:
             flag = 0
             break
-    if flag == 1:
+    if flag:
         count += 1
         
 print(count)
