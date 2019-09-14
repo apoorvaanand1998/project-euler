@@ -11,28 +11,19 @@ def sieve(n):
 
 l = sieve(1000000)
 
-def dec_rs(n):
-    n = n[-1:] + n[0:-1]
-    return n
-
-def all_rot(n):
-    n = list(str(n))
-    l = [n]
-    c = dec_rs(n)
-    while (c != n):
-        l.append(c)
-        c = dec_rs(c)
-    return l
-
-def all_rots_prime(n):
-    for rot in all_rot(n):
-        rot = int(''.join(rot))
-        if not l[rot]:
-            return False
-    return True
-
 count = 0
 for i in range(1000000):
-    if all_rots_prime(i):
+    if not l[i]:
+        continue
+    n = i
+    t = len(str(i))-1
+    flag = 1
+    for j in range(t):
+        n = (n%10)*10**t + (n//10)
+        if not l[n]:
+            flag = 0
+            break
+    if flag == 1:
         count += 1
+        
 print(count)
