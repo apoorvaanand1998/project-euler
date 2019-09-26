@@ -2,17 +2,17 @@ from itertools import permutations
 
 def is_prime(n):
     n = int(''.join(map(str, n)))
-    if n == 2 or n == 3: return True
-    if n < 2 or n%2 == 0: return False
-    if n < 9: return True
-    if n%3 == 0: return False
-    r = int(n**0.5)+1
-    f = 5
-    while f <= r:
-        if n%f == 0: return False
-        if n%(f+2) == 0: return False
-        f += 6
-    return True    
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    for i in range(5, int(n**0.5)+2, 6):
+        if n % i == 0 or n % (i+2) == 0:
+            return False
+    return True
 
 perm = permutations(range(1, 8))
 li = list(perm)
