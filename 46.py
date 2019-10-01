@@ -4,6 +4,41 @@ def is_comp(n):
             return True
     return False
 
-for i in range(9, 100, 2):
+def twice_square(n):
+    i = 1
+    ts = 2 * i * i
+    tsl = []
+    while (ts < n):
+        tsl.append(ts)
+        i += 1
+        ts = 2 * i * i
+    return tsl
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    elif n <= 3:
+        return True
+    elif n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if (n % i == 0 or n % (i + 2) == 0):
+            return False
+        i += 6
+    return True
+
+i = 9
+while True:
     if is_comp(i):
-        print(i)
+        tsl = twice_square(i)
+        found = 0
+        for ts in tsl:
+            if is_prime(i - ts):
+                found = 1
+                break
+        if not found:
+            print(i)
+            break
+    i += 2
+        
