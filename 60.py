@@ -41,17 +41,10 @@ def prime_prop(primes, l, n):
 def is_prime(n):
     return PRIME[n]
 
-pl = [True] * n
-pl[0] = pl[1] = False
-
-for i in range(int(n**0.5)+2):
-    if pl[i]:
-        for j in range(i*i, n, i):
-            pl[j] = False
 primes = []
 primes_l = []
 for i in range(n):
-    if pl[i]:
+    if PRIME[i]:
         primes.append(i)
         primes_l.append([i])
 
