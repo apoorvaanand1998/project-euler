@@ -8,8 +8,8 @@ for i in range(1, l):
     current_coin = kinds_of_coins[i]
     for j in range(current_coin, amount + 1):
         dp[j] += dp[j - kinds_of_coins[i]]
-            
-print(dp[10000])
+           
+print(dp[amount])
 
 ########################################################################################################################################
 # Explanation in overview and by drawing the dp table for this problem (can be found in many videos online but do it yourself instead) #
