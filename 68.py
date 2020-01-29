@@ -1,6 +1,9 @@
 from itertools import permutations, combinations
 from collections import defaultdict
 
+## Works by filtering (and pruning? I guess? Don't know the official term)
+## Look at each function name to understand what it does
+
 def pick_3_of_total(comb_list, total):
     poss = []
     for e in comb_list:
@@ -21,7 +24,8 @@ def filter(poss):
                 freq[el] += 1
                 if freq[el] > 2:
                     return False
-        return True if (freq[10] == 1) else False ## 10 can only occur once because they want 16 digit string
+        return True if (freq[10] == 1) else False
+    ## 10 can only occur once because they want 16 digit string
 
     def diff_1_in(l):
         l = list(map(set, l))
@@ -35,6 +39,28 @@ def filter(poss):
             if len(c) == 1:
                 common = common.union(c)
         return len(common) == 5
+
+    def arrange_list_of_five(lof):
+        lof = list(map(set, lof))
+        common = []
+
+        for i in range(len(lof)):
+            if i == len(lof) - 1:
+                c = max(lof[i].intersection(lof[0]))
+            else:
+                c = max(lof[i].intersection(lof[i+1]))
+            common.append(c)
+
+        singles = []
+        for e in lof:
+            singles.append(max(e - set(common)))
+
+        c = common
+        s = singles
+
+        arranged = [ s[0], c[-1], c[0], s[1], c[0], c[1], s[2], c[1], c[2], s[3],  c[2], c[3], s[4], c[3], c[4] ]
+
+        return arranged
 
     poss = list(combinations(poss, 5))
     all_10 = []
@@ -51,7 +77,7 @@ def filter(poss):
         if not_more_than_2_in(e):
             not_more_than_2.append(e)
     poss = not_more_than_2
-    #print(poss, len(poss))
+
     if poss == []:
         return False
 
@@ -60,9 +86,21 @@ def filter(poss):
         p = list(permutations(e))
         for el in p:
             if diff_1_in(el):
-                diff_1.append(e)
-    print(diff_1, len(diff_1))
+                diff_1.append(el)
+    poss = diff_1
+
+    if poss == []:
+        return False
+
+    arranged_strings = []
+    for e in poss:
+        arr = arrange_list_of_five(e)
+        arranged_strings.append(arr)
+
+    return min(arranged_strings, key=lambda x:x[0])
 
 comb_list = list(combinations(list(range(1, 11)), 3))
-poss = pick_3_of_total(comb_list, 14)
-filter(poss)
+
+for total in range(13, 28):
+    poss = pick_3_of_total(comb_list, total)
+    print(total, filter(poss))
