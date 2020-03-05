@@ -38,6 +38,18 @@ cd = build_dict({169 : 3,
                  872 : 2,
                  45361 : 2,
                  45362 : 2})
+'''
+Why is it important to start build_dict with the above
+numbers already in chain_dict? That is because these 
+are the only 3 numbers that form a loop. For example, 
+during the building of the dict, let's say 1454 is 
+encountered. In this case, the next curr is 169. Since,
+169 is already in chain_dict, our algorithm will assign
+1454 chain_dict[169] + 1 as the chain_length, which is 
+wrong. THE ALGORITHM DOES NOT HOLD UP TO THE EDGE CASES
+OF THE LOOPS ABOVE. chain_dict[1454] should be the same
+as chain_dict[169] (Just draw the chain in your head)
+'''
 count = 0
 for e in cd:
     if cd[e] == 60:
