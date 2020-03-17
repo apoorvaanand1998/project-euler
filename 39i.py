@@ -37,8 +37,6 @@ for p in range(12, 1001):
     no_of_sol = len(euclid_pyth(p))
     if no_of_sol > max_sol[1]:
         max_sol = [p, no_of_sol]
-print(max_sol)
-                
-            
+print(max_sol)         
     
             
