@@ -1,37 +1,19 @@
-def min_path_sum(matrix):
-    ## draw a tree mapping out the paths of the matrix
-    ## do a BFS through the tree
-    lm = len(matrix)-1
-    llm = len(matrix[len(matrix)-1])-1
-    indices = {
-        (lm, llm) : [(lm-1, llm), (lm, llm-1)]
-        }
+class Node:
+    def __init__(self, val, summed, row, column):
+        self.val = val
+        self.summed = summed
+        self.row = row
+        self.column = column
+        self.left = None
+        self.up = None
 
-    while (0, 0) not in indices:
-        new_indices = {}
-        new_sums = {}
-        for e in indices:
-            s = []
-            for el in indices[e]:
-                s.append(matri
-                ups_and_lefts = []
-                if (el[0]-1 >= 0):
-                    ups_and_lefts.append((el[0]-1, el[1]))
-                if (el[1]-1 >= 0):
-                    ups_and_lefts.append((el[0], el[1]-1))
-                new_indices[el] = ups_and_lefts
-        indices = new_indices
-        print(matrix)
+    def set_left(self, left_val):
+        self.left = Node(self.val+left_val, self.summed+left_val, self.row, self.column - 1)
+        return self.left
 
-m = [[131, 673, 234, 103, 18],
-     [201, 96, 342, 965, 150],
-     [630, 803, 746, 422, 111],
-     [537, 699, 497, 121, 956],
-     [805, 732, 524, 37, 331]]
+    def set_up(self, up_val):
+        self.up = Node(self.val+up_val, self.summed+up_val, self.row-1, self.column)
+        return self.up
 
-min_path_sum(m)
-
-            
-                
-        
-        
+    def __repr__(self):
+        return 'Node({}, {}, {}, {})'.format(self.val, self.summed, self.row, self.column) 
